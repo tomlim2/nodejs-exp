@@ -1,19 +1,11 @@
-import React from 'react';
-import { HashRouter, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import About from "./routes/About";
-import Home from "./routes/Home";
-import Detail from "./routes/Detail";
+//Modules
+const names = require('./4-names');
+const sayHi = require('./5-utils');
+const data = require('./6-alternative-flavor');
+require('./7-mind-grenade');
 
-function App(){
-  return (
-    <HashRouter>
-      <Navigation />
-      <Route path="/" exact={true} component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/movie/:id" component={Detail} />
-    </HashRouter>
-  );
-}
+// console.log(data);
 
-export default App;
+// sayHi('mac')
+// sayHi(names.john)
+// sayHi(names.tobby)
