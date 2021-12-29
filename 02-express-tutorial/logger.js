@@ -10,3 +10,5 @@ const logger = (req, res, next) => {
   // res.send('testing');
   next();
 };
+
+module.exports = logger;
