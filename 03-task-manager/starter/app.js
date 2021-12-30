@@ -8,6 +8,7 @@ app.get('/hello', (req, res) => {
   res.send('Task Manager App');
 });
 
+app.use(express.json());
 // routes;
 app.use('/api/v1/tasks', tasks);
 

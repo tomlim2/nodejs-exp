@@ -1,4 +1,5 @@
 const getAllTasks = (req, res) => {
+  console.log(req);
   res.send('get all tasks');
 };
 
