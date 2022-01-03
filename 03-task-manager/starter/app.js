@@ -1,13 +1,12 @@
 const connectDB = require('./db/connect');
-
 const express = require('express');
 const app = express();
 const tasks = require('./routes/tasks');
 require('dotenv').config();
-
+const notFound = require('./middleware/not-found');
 // middleware
 app.use(express.static('./public'));
-app.use(express.json());
+app.use(express.json(notFound));
 
 // routes;
 // app.get('/hello', (req, res) => {
