@@ -1,7 +1,11 @@
 const Product = require('../models/product');
 
 const getAllProductsStatic = async (req, res) => {
-  const products = await Product.find({}).sort('-name price');
+  const products = await Product.find({})
+    .sort('name')
+    .select('name limit')
+    .limit(10)
+    .skip(1);
   res.status(200).json({ products, nbHits: products.length });
 };
 
@@ -18,8 +22,10 @@ const getAllProducts = async (req, res) => {
   if (name) {
     queryObject.name = { name: { $regex: name, $option: 'i' } };
   }
+
   // console.log(queryObject);
   let result = Product.find(queryObject);
+
   // sort
   if (sort) {
     const sortList = sort.split(',').join(' ');
@@ -28,12 +34,19 @@ const getAllProducts = async (req, res) => {
   } else {
     result = result.sort('createAt');
   }
+
   //fields
   if (fields) {
     const fieldsList = fields.split(',').join(' ');
     result = result.select(fieldsList);
   }
-  
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  result = result.skip(skip).limit(limit);
+
   const products = await result;
 
   res.status(200).json({ products, nbHits: products.length });
