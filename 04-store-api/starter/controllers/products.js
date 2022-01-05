@@ -32,9 +32,8 @@ const getAllProducts = async (req, res) => {
   if (fields) {
     const fieldsList = fields.split(',').join(' ');
     result = result.select(fieldsList);
-  } else {
-    
   }
+  
   const products = await result;
 
   res.status(200).json({ products, nbHits: products.length });
