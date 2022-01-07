@@ -27,37 +27,36 @@ const login = async (req, res) => {
     expiresIn: '30d',
   });
 
-  console.log(token)
+  // console.log(token);
 
-  res.status(200).json({ msg: 'user created' , token});
+  res.status(200).json({ msg: 'user created', token });
 };
 
 const dashboard = async (req, res) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    throw new CustomAPIError('No token provided', 401);
-  }
-
-  // console.log(authHeader);
-  const token = authHeader.split(' ')[1];
-console.log(token);
-try {
-  const decoded = jwt.verify(token, process.env.JWT_SECRET)
-  console.log(decoded)
-
+  console.log(req.user)
   const luckyNumber = Math.floor(Math.random() * 100);
   res.status(200).json({
-    msg: `Hi ${decoded.username}`,
+    msg: `Hi ${req.user.username}`,
     secret: `here is your authorized data, your lucky number is ${luckyNumber}`,
   });
-} catch (error) {
-  throw new CustomAPIError('Not authorized to access this routes', 401);
-
-  
-}
-
-  
+  // const authHeader = req.headers.authorization;
+  // if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  //   throw new CustomAPIError('No token provided', 401);
+  // }
+  // console.log(authHeader);
+  // const token = authHeader.split(' ')[1];
+  // console.log(token);
+  // try {
+  //   const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  //   console.log(decoded);
+  //   const luckyNumber = Math.floor(Math.random() * 100);
+  //   res.status(200).json({
+  //     msg: `Hi ${decoded.username}`,
+  //     secret: `here is your authorized data, your lucky number is ${luckyNumber}`,
+  //   });
+  // } catch (error) {
+  //   throw new CustomAPIError('Not authorized to access this routes', 401);
+  // }
 };
 
 module.exports = {
