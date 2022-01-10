@@ -20,7 +20,7 @@ const jobsRouter = require('./routes/jobs');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
-app.set('trust proxy', 1)
+app.set('trust proxy', 1);
 app.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -28,9 +28,9 @@ app.use(
   })
 );
 
-const swaggerUI = require('swagger-ui-express')
-const YAML = require('yamljs')
-const swaggerDocument = YAML.load('./swagger.yaml')
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 app.use(express.json());
 app.use(helmet());
@@ -39,11 +39,11 @@ app.use(xss());
 
 //swagger
 
-app.get('/',(req,res)=>{
-  res.send('<h1>jobs api</h1><a href="/api-docs">Documentation</a>')
-})
+app.get('/', (req, res) => {
+  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
+});
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes
 app.use('/api/v1/auth', authRouter);
