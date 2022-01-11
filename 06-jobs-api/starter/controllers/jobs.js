@@ -13,8 +13,8 @@ const getJob = async (req, res) => {
     user: { userId },
     params: { id: jobId },
   } = req;
-  console.log('userId is ', userId);
-  console.log('jobId is ', jobId);
+  // console.log('userId is ', userId);
+  // console.log('jobId is ', jobId);
   const job = await Job.findOne({ _id: jobId, createdBy: userId });
   if (!job) {
     throw new NotFoundError(`No job with id ${jobId}`);
